@@ -1,8 +1,16 @@
+//S3 Loads
+Images = new FS.Collection("images", {
+  stores: [new FS.Store.S3("images")]
+});
+
+//Subscribes
 Meteor.subscribe('publicUsers');
 Meteor.subscribe('companies');
 Meteor.subscribe('experiences');
 Meteor.subscribe('tagAssociations');
 Meteor.subscribe('images');
+
+
 
 Meteor.startup(function() {
   GoogleMaps.load();

@@ -3,9 +3,7 @@ Collections = {
   tagAssociations: new Mongo.Collection('tagAssociations'),
   experiences: new Mongo.Collection('experiences'),
 }
-Images = new FS.Collection("images", {
-  stores: [new FS.Store.FileSystem("images")]
-});
+
 
 Schema = {};
 
