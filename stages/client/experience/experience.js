@@ -1,12 +1,15 @@
 Template.experience.helpers({
+  //Load the author of the experience
   user: function() {
     return Meteor.users.findOne({_id: Template.instance().data.user});
   },
+  //Load the photo from Ares
   photoUrl: function() {
     var user = Meteor.users.findOne({_id: Template.instance().data.user});
     if(!user.services.ares.avatar_thumb || user.services.ares.avatar_thumb == '') return '/img/question.png';
     return user.services.ares.avatar_thumb;
   },
+  //Generate the first line (example : "Stage de première année")
   basicInfo: function() {
     var exp = Template.instance().data;
     var str = "Stage ";
@@ -17,6 +20,7 @@ Template.experience.helpers({
     }
     return str;
   },
+  //Generate the date line (Stage du ... au ...)
   dateInfo: function() {
     var dateStart = Template.instance().data.dateStart;
     var dateEnd = Template.instance().data.dateEnd;
@@ -35,7 +39,7 @@ Template.experience.events({
     Router.go('/experience/edit/' + Template.instance().data._id);
   },
   'click .experience .delete-button' : function() {
-    $('.delete-experience-dialog').openModal();
+    $('.delete-experience-dialog').openModal(); //Open confirmation
   },
   'click .confirm-delete-experience' : function() {
     Meteor.call('deleteExperience', Template.instance().data);

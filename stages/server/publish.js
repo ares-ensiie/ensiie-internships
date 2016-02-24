@@ -1,3 +1,4 @@
+//We publish only the needed fields for users
 Meteor.publish('publicUsers', function() {
   if(!this.userId) return undefined;
   return Meteor.users.find({}, {
@@ -6,8 +7,7 @@ Meteor.publish('publicUsers', function() {
 
 });
 
-
-
+//We publish everything else when the user is authenticated
 Meteor.publish('experiences', function() {
   if(!this.userId) return undefined;
   return Collections.experiences.find();

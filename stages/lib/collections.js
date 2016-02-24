@@ -1,3 +1,8 @@
+/**
+Collections description.
+The project uses meteor-simple-schema.
+**/
+
 Collections = {
   companies: new Mongo.Collection("companies"),
   tagAssociations: new Mongo.Collection('tagAssociations'),
@@ -11,6 +16,9 @@ SimpleSchema.messages({
   "dateOrderIncorrect": "La date de début est après la date de fin."
 });
 
+/**
+Description of a Company document
+**/
 Schema.Companies = new SimpleSchema({
     name: {
       type: String,
@@ -58,6 +66,10 @@ Schema.Companies = new SimpleSchema({
     }
 });
 
+/**
+Description of an association of tag.
+This collection is used for predicting tags
+**/
 Schema.TagAssociations = new SimpleSchema({
     tags: {
       type:[String],
@@ -70,13 +82,13 @@ Schema.TagAssociations = new SimpleSchema({
     }
 });
 
+/**
+Description of an user
+**/
 Schema.User = new SimpleSchema({
     username: {
         type: String,
-        // For accounts-password, either emails or username is required, but not both. It is OK to make this
-        // optional here because the accounts-password package does its own validation.
-        // Third-party login packages may not require either. Adjust this schema as necessary for your usage.
-        optional: true
+        optional: true //because we use meteor-ares for logging
     },
     createdAt: {
         type: Date
@@ -91,28 +103,15 @@ Schema.User = new SimpleSchema({
         optional: true,
         blackbox: true
     },
-    // Add `roles` to your schema if you use the meteor-roles package.
-    // Option 1: Object type
-    // If you specify that type as Object, you must also specify the
-    // `Roles.GLOBAL_GROUP` group whenever you add a user to a role.
-    // Example:
-    // Roles.addUsersToRoles(userId, ["admin"], Roles.GLOBAL_GROUP);
-    // You can't mix and match adding with and without a group since
-    // you will fail validation in some cases.
-    /*roles: {
-        type: Object,
-        optional: true,
-        blackbox: true
-    },*/
-    // Option 2: [String] type
-    // If you are sure you will never need to use role groups, then
-    // you can specify [String] as the type
-    roles: {
+    roles: { //Will be used in the future for admin accounts
         type: [String],
         optional: true
     }
 });
 
+/**
+Description of an experience
+**/
 Schema.Experience = new SimpleSchema({
     year: {
       type: String,
@@ -200,6 +199,7 @@ Schema.Experience = new SimpleSchema({
     }
 });
 
+//We attach schemas to collections
 Meteor.users.attachSchema(Schema.User);
 Collections.companies.attachSchema(Schema.Companies);
 Collections.tagAssociations.attachSchema(Schema.TagAssociations);

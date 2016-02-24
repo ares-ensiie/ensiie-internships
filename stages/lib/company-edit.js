@@ -1,3 +1,6 @@
+/**
+The user can edit the company if he is the author or if he has an experience in the company
+**/
 canEditCompany = function(userId, company) {
   //The user can edit the company if
   //he is the creator
@@ -19,6 +22,7 @@ canDeleteCompany = function(userId, company) {
   return experience == undefined && company.creator == userId;
 }
 
+//We need a GPS location based on the company's address
 var lookForLocation = function(company) {
   var googleData = Geo.geocode(company.address);
   if(googleData.length > 0) {
@@ -31,6 +35,9 @@ var lookForLocation = function(company) {
 }
 
 Meteor.methods({
+  /**
+  Insert a new company
+  **/
   insertCompany: function(company) {
     if(!Meteor.user())
       throw new Meteor.Error(403, 'You must be authenticated.');
@@ -41,6 +48,10 @@ Meteor.methods({
     company.creator = Meteor.userId();
     Collections.companies.insert(company);
   },
+  /**
+  Updates a company
+  @param company object with a valid _id
+  **/
   updateCompany: function(company) {
     if(!Meteor.user())
       throw new Meteor.Error(403, 'You must be authenticated.');
@@ -48,8 +59,7 @@ Meteor.methods({
     if(!canEditCompany(Meteor.userId(), company))
       throw new Meteor.Error(403, 'You have no right to edit this company.');
 
-
-
+    //Search for GPS coordinates
     if(Meteor.isServer) {
       company = lookForLocation(company);
     }

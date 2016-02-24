@@ -1,4 +1,5 @@
 Template.companies.helpers({
+  //Get all companies
   'companies' : function() {
     var companies = Collections.companies.find().fetch();
     for(var i=0; i<companies.length; i++) {
@@ -9,6 +10,7 @@ Template.companies.helpers({
     }
     return companies;
   },
+  //Returns true if there is no company :'(
   'noCompany' : function() {
     return Collections.companies.find().fetch().length == 0;
   }
@@ -31,7 +33,7 @@ Template.companies.created = function() {
 Template.company.helpers({
   companyMapOptions: function() {
     var company = Collections.companies.findOne({_id: Template.instance().data._id});
-    console.log(company);
+
     var template = Template.instance();
     // Make sure the maps API has loaded
     if (GoogleMaps.loaded()) {
@@ -54,6 +56,7 @@ Template.company.helpers({
   experiences: function() {
     return Collections.experiences.find({company: Template.instance().data._id});
   },
+  //Returns true if the given fields exists in this company
   hasField: function(field) {
     return Template.instance().data[field] != undefined;
   },
@@ -97,6 +100,7 @@ Template.company.created = function() {
     var theMap = map.instance;
 
     Tracker.autorun(function() {
+      //Map
       var company = Collections.companies.findOne({_id: template.data._id});
       if(company.location) {
         template.marker.setPosition(new google.maps.LatLng(company.location.latitude, company.location.longitude));

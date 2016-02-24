@@ -1,11 +1,14 @@
+//Main layout
 Router.configure({
   layoutTemplate: 'mainLayout',
 });
 
+//Companies page
 Router.route('companies', {
   path: '/'
 });
 
+//About page
 Router.route('about', {
   path: '/about'
 });

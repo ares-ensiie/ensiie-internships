@@ -2,6 +2,7 @@ Template.experienceEdit.helpers({
   company: function() {
     return Template.instance().data.company;
   },
+  //Get the associated tags for the tags in the form
   suggestedTags: function() {
     return associatedTags(Template.instance().currentTags.get());
   },
@@ -11,6 +12,7 @@ Template.experienceEdit.helpers({
   currentTags: function() {
     return Template.instance().currentTags.get();
   },
+  //Get the class name for the given field. The field is checked, if correct -> valid otherwise -> invalid
   validState : function(name) {
     var errors = Collections.experiences.simpleSchema().namedContext().invalidKeys();
     var n = name;
