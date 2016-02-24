@@ -1,5 +1,5 @@
 Images = new FS.Collection("images", {
-  stores: [new FS.Store.S3("images", {bucket: "karrde-test",region: "eu-central-1"})]
+  stores: [new FS.Store.S3("images", {bucket: process.env.AWS_BUCKET,region: process.env.AWS_REGION})]
 });
 
 
